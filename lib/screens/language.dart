@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:rpbank/screens/auth/login.dart';
 import 'package:rpbank/screens/splash_screen.dart';
+import 'package:rpbank/utils/tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageScreen extends StatefulWidget {
@@ -12,6 +13,20 @@ class LanguageScreen extends StatefulWidget {
 }
 
 class _LanguageScreenState extends State<LanguageScreen> {
+  @override
+  void initState() {
+    TextToSpeech.initTTS('en-IN');
+    TextToSpeech.speak("Select the language");
+    TextToSpeech.initTTS('te-IN');
+    TextToSpeech.speak("భాషను ఎంచుకోండి");
+    TextToSpeech.initTTS('hi-IN');
+    TextToSpeech.speak("भाषा का चयन करें");
+    TextToSpeech.initTTS('ta-IN');
+
+    TextToSpeech.speak("மொழியைத் தேர்ந்தெடுக்கவும்");
+    super.initState();
+  }
+
   void setLanguage(String language) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("language", language);
@@ -79,13 +94,13 @@ class _LanguageScreenState extends State<LanguageScreen> {
                             onPressed: () {
                               String language = 'english';
                               if (e == "తెలుగు") {
-                                language = 'telugu';
+                                language = 'te-IN';
                               } else if (e == 'हिंदी') {
-                                language = 'hindi';
+                                language = 'hi-IN';
                               } else if (e == 'தமிழ்') {
-                                language = 'tamil';
+                                language = 'ta-IN';
                               } else {
-                                language = 'english';
+                                language = 'en-IN';
                               }
                               setLanguage(language);
                             },
@@ -108,6 +123,16 @@ class _LanguageScreenState extends State<LanguageScreen> {
               ),
             ),
           ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        focusColor: Colors.black,
+        backgroundColor: Colors.black,
+        onPressed: () {},
+        child: Icon(
+          Icons.mic,
+          color: Colors.white,
         ),
       ),
     );

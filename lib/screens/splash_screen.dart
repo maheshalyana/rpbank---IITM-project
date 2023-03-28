@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+import 'package:rpbank/utils/tts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../providers/language_provider.dart';
 import 'auth/login.dart';
 import 'home_screen.dart';
 import 'language.dart';
@@ -21,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(Duration(milliseconds: 500), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? language = prefs.getString("language");
       if (prefs.getString("language") != null) {
         if (prefs.getBool("login") != null && prefs.getBool("login")!) {
           Navigator.pushAndRemoveUntil(
@@ -34,6 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
               (route) => false);
         }
       } else {
+        TextToSpeech.initTTS(language);
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => LanguageScreen()),

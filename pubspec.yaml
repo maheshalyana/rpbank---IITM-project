@@ -40,6 +40,10 @@ dependencies:
   http:
   provider:
   form_field_validator:
+  translator:
+  flutter_tts:
+  speech_to_text: ^6.1.1
+  avatar_glow: ^2.0.2
 
 dev_dependencies:
   flutter_test:
